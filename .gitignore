@@ -24,8 +24,15 @@ profile.cov
 go.work
 go.work.sum
 
-# env file
+# env file (the decrypted plaintext bridge the CLI hands to setup.sh; oap.env
+# itself is SOPS-encrypted and committable)
 .env
+
+# spec-spine derived artifacts (regenerable via `spec-spine compile`)
+.derived/
+
+# the CLI binary
+/oap-bootstrap
 
 # Editor/IDE
 # .idea/
