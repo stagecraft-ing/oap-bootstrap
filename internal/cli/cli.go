@@ -29,7 +29,7 @@ func commands() map[string]Command {
 	return map[string]Command{
 		"init":     {"init", "Collect/generate config into oap.env", cmdInit},
 		"doctor":   {"doctor", "Preflight: required tools + config readiness", cmdDoctor},
-		"github":   stub("github", "Fork + register the GitHub App + Actions secrets"),
+		"github":   {"github", "Fork + register the GitHub App + Actions secrets", cmdGithub},
 		"cluster":  stub("cluster", "Wrap upstream setup.sh phase 1 (K3s + GitOps)"),
 		"dns":      stub("dns", "Create Cloudflare A records; wait for certs"),
 		"identity": stub("identity", "Create Rauthy OIDC clients (+ guided provider)"),

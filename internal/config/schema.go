@@ -119,7 +119,6 @@ var Registry = []Key{
 	{Name: "RAUTHY_ENC_KEY", Prov: Generated, Secret: true, Required: true, Gen: GenBase64Std32},
 	{Name: "HIQLITE_SECRET_RAFT", Prov: Generated, Secret: true, Required: true, Gen: GenHex32},
 	{Name: "HIQLITE_SECRET_API", Prov: Generated, Secret: true, Required: true, Gen: GenHex32},
-	{Name: "GITHUB_WEBHOOK_SECRET", Prov: Generated, Secret: true, Required: true, Gen: GenHex32},
 	{Name: "MINIO_ROOT_USER", Prov: Generated, Required: true, Gen: GenHex6},
 	{Name: "MINIO_ROOT_PASSWORD", Prov: Generated, Secret: true, Required: true, Gen: GenHex32},
 	{Name: "PAT_ENCRYPTION_KEY", Prov: Generated, Secret: true, Required: true, Gen: GenBase64Std32},
@@ -129,6 +128,9 @@ var Registry = []Key{
 	// ---- Provider-produced: populated by the github / identity phases. ----
 	{Name: "GITHUB_APP_ID", Prov: ProviderProduced, Required: true},
 	{Name: "GITHUB_APP_PRIVATE_KEY_B64", Prov: ProviderProduced, Secret: true, Required: true},
+	// GitHub generates the webhook secret during the manifest flow and returns it
+	// in the conversion response; it is not supplied by the CLI.
+	{Name: "GITHUB_WEBHOOK_SECRET", Prov: ProviderProduced, Secret: true, Required: true},
 	{Name: "GITHUB_UPSTREAM_CLIENT_ID", Prov: ProviderProduced, Required: true},
 	{Name: "GITHUB_UPSTREAM_CLIENT_SECRET", Prov: ProviderProduced, Secret: true, Required: true},
 	{Name: "OIDC_SPA_CLIENT_ID", Prov: ProviderProduced, Required: true},
