@@ -105,6 +105,21 @@ func SecretKeyNames() []string {
 // `source` quoting is applied only by the future setup.sh temp-file bridge, not
 // here, so it never collides with SOPS's parser.
 
+// OrderedKeys returns the names of every set key in serialization order
+// (Registry order first, then any forward-compat keys in insertion order). It
+// lets a consumer iterate the config without reaching into its internals; the
+// setup.sh temp-file bridge uses it to emit shell-quoted lines.
+func (c *Config) OrderedKeys() []string {
+	var out []string
+	for _, k := range Registry {
+		if _, ok := c.vals[k.Name]; ok {
+			out = append(out, k.Name)
+		}
+	}
+	out = append(out, c.order...)
+	return out
+}
+
 // Serialize renders the config as a plain dotenv document in Registry order.
 func (c *Config) Serialize() []byte {
 	var b bytes.Buffer

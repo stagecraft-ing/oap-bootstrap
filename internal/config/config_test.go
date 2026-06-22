@@ -57,6 +57,23 @@ func TestDeriveFromDomain(t *testing.T) {
 	}
 }
 
+func TestDeriveFluxFromOrgRepo(t *testing.T) {
+	c := New()
+	c.Set("ORG", "acme-inc")
+	c.Set("REPO", "open-agentic-platform")
+	c.RefreshDerived()
+	want := map[string]string{
+		"FLUX_OWNER":  "acme-inc",
+		"FLUX_REPO":   "open-agentic-platform",
+		"FLUX_BRANCH": "main",
+	}
+	for k, v := range want {
+		if got := c.Get(k); got != v {
+			t.Errorf("%s = %q, want %q (FR-040: the fork's flux bootstrap targets its own repo)", k, got, v)
+		}
+	}
+}
+
 func TestParseSerializeRoundTrip(t *testing.T) {
 	c := New()
 	c.Set("DOMAIN", "oap.example.com")

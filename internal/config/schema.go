@@ -143,7 +143,18 @@ var Registry = []Key{
 	{Name: "STAGECRAFT_KNOWLEDGE_SWEEPER_CLIENT_SECRET", Prov: ProviderProduced, Secret: true, Required: true},
 	{Name: "NODE_IP", Prov: ProviderProduced, Required: true}, // captured by the cluster phase
 
-	// ---- Derived: computed from DOMAIN (never prompted, never generated). ----
+	// ---- Derived: computed from another value (never prompted, never generated). ----
+	// FLUX_OWNER/REPO/BRANCH point the forked repo's `flux bootstrap` at its own
+	// repo so the GitOps loop reconciles from the fork, not upstream. They are the
+	// .env half of the upstream's FR-040 seam (setup.sh defaults them to the
+	// upstream owner/repo/branch, so an unset .env behaves exactly as before);
+	// driving them from ORG/REPO is what makes a fork need zero source edits.
+	{Name: "FLUX_OWNER", Prov: Derived,
+		Derive: func(g func(string) string) string { return strings.TrimSpace(g("ORG")) }},
+	{Name: "FLUX_REPO", Prov: Derived,
+		Derive: func(g func(string) string) string { return strings.TrimSpace(g("REPO")) }},
+	{Name: "FLUX_BRANCH", Prov: Derived,
+		Derive: func(g func(string) string) string { return "main" }},
 	{Name: "APP_BASE_URL", Prov: Derived,
 		Derive: func(g func(string) string) string { return httpsHost("", g("DOMAIN")) }},
 	{Name: "RAUTHY_URL", Prov: Derived,
