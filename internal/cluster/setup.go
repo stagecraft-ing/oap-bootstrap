@@ -67,6 +67,29 @@ func EnsureCheckout(ctx context.Context, repoDir, org, repo string) error {
 // `flux bootstrap` sops-age Secret resolves the operator key on macOS, where
 // sops's default key location differs from the upstream convention.
 func RunSetupPhase1(ctx context.Context, repoDir, sopsAgeKeyFile string) error {
+	return runSetup(ctx, repoDir, sopsAgeKeyFile, "phase 1")
+}
+
+// RunSetupPhase2 runs the SAME setup.sh a second time. setup.sh is phase-driven
+// by .env state, not by a flag (spec 001 SC-005: no reimplementation), so the
+// only thing distinguishing this from Phase 1 is that the bridge .env now
+// carries the full provider-produced key set (the GitHub App + Rauthy OIDC
+// values from the github/identity phases). With those present, setup.sh's
+// Phase-2 readiness gate passes: it re-runs the idempotent Phase-1 steps
+// (cluster create skipped given the kubeconfig, `flux bootstrap` a no-op,
+// Phase-1 secrets re-applied), then materialises the stagecraft/deployd secrets
+// and rolls the deployments to pick them up. The CLI does not parse or branch on
+// the phase; it hands setup.sh a complete .env and lets the script decide.
+func RunSetupPhase2(ctx context.Context, repoDir, sopsAgeKeyFile string) error {
+	return runSetup(ctx, repoDir, sopsAgeKeyFile, "phase 2")
+}
+
+// runSetup is the shared exec behind both phase wrappers: locate setup.sh in the
+// hetzner dir, run it with inherited stdio so its output and prompts reach the
+// operator, and thread an explicit SOPS_AGE_KEY_FILE through the environment. The
+// phaseLabel only colours the error message; the script itself is identical for
+// both passes.
+func runSetup(ctx context.Context, repoDir, sopsAgeKeyFile, phaseLabel string) error {
 	dir := HetznerDir(repoDir)
 	script := filepath.Join(dir, "setup.sh")
 	if _, err := os.Stat(script); err != nil {
@@ -82,7 +105,7 @@ func RunSetupPhase1(ctx context.Context, repoDir, sopsAgeKeyFile string) error {
 		cmd.Env = append(cmd.Env, "SOPS_AGE_KEY_FILE="+sopsAgeKeyFile)
 	}
 	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("setup.sh phase 1: %w", err)
+		return fmt.Errorf("setup.sh %s: %w", phaseLabel, err)
 	}
 	return nil
 }

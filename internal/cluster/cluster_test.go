@@ -116,6 +116,29 @@ func TestPathHelpers(t *testing.T) {
 	}
 }
 
+// TestRunSetupMissingScript: both phase wrappers fail fast with a clear error
+// when setup.sh is absent from the checkout, rather than handing bash a missing
+// file. Covers the shared os.Stat guard behind RunSetupPhase1/RunSetupPhase2.
+func TestRunSetupMissingScript(t *testing.T) {
+	repoDir := t.TempDir() // no platform/infra/hetzner/setup.sh inside
+	for _, tc := range []struct {
+		name string
+		run  func() error
+	}{
+		{"phase1", func() error { return RunSetupPhase1(t.Context(), repoDir, "") }},
+		{"phase2", func() error { return RunSetupPhase2(t.Context(), repoDir, "") }},
+	} {
+		err := tc.run()
+		if err == nil {
+			t.Errorf("%s: expected error for missing setup.sh", tc.name)
+			continue
+		}
+		if !strings.Contains(err.Error(), "setup.sh not found") {
+			t.Errorf("%s: unexpected error: %v", tc.name, err)
+		}
+	}
+}
+
 func TestEnsureCheckoutRejectsNonGitDir(t *testing.T) {
 	dir := filepath.Join(t.TempDir(), "fork")
 	if err := os.MkdirAll(dir, 0o755); err != nil {

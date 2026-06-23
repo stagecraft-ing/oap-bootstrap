@@ -66,10 +66,11 @@ func TestDeriveFluxFromOrgRepo(t *testing.T) {
 		"FLUX_OWNER":  "acme-inc",
 		"FLUX_REPO":   "open-agentic-platform",
 		"FLUX_BRANCH": "main",
+		"GH_REPO":     "acme-inc/open-agentic-platform",
 	}
 	for k, v := range want {
 		if got := c.Get(k); got != v {
-			t.Errorf("%s = %q, want %q (FR-040: the fork's flux bootstrap targets its own repo)", k, got, v)
+			t.Errorf("%s = %q, want %q (FR-040: the fork's flux bootstrap + gh-sync target its own repo)", k, got, v)
 		}
 	}
 }

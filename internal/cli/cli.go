@@ -33,9 +33,9 @@ func commands() map[string]Command {
 		"cluster":  {"cluster", "Wrap upstream setup.sh phase 1 (K3s + GitOps)", cmdCluster},
 		"dns":      {"dns", "Create Cloudflare A records; wait for certs", cmdDns},
 		"identity": {"identity", "Create Rauthy OIDC clients (+ guided provider)", cmdIdentity},
-		"platform": stub("platform", "Wrap upstream setup.sh phase 2 (secrets + deploy)"),
-		"verify":   stub("verify", "Endpoint / cert / webhook health report"),
-		"apply":    stub("apply", "Run every phase (use with --yes)"),
+		"platform": {"platform", "Wrap upstream setup.sh phase 2 (secrets + deploy)", cmdPlatform},
+		"verify":   {"verify", "Endpoint / cert / webhook health report", cmdVerify},
+		"apply":    {"apply", "Run every phase (use with --yes)", cmdApply},
 	}
 }
 
@@ -69,13 +69,6 @@ func usage() {
 	}
 	w.Flush()
 	fmt.Println("\nRun 'oap-bootstrap <command> -h' for command flags.")
-}
-
-// stub builds a not-yet-implemented command that still documents itself.
-func stub(name, short string) Command {
-	return Command{Name: name, Short: short, Run: func(_ []string) error {
-		return fmt.Errorf("phase %q is not implemented yet (M1 ships init + doctor); see spec 001 milestones", name)
-	}}
 }
 
 // sortedStrings returns a sorted copy (small helper used by reports).

@@ -155,6 +155,22 @@ var Registry = []Key{
 		Derive: func(g func(string) string) string { return strings.TrimSpace(g("REPO")) }},
 	{Name: "FLUX_BRANCH", Prov: Derived,
 		Derive: func(g func(string) string) string { return "main" }},
+	// GH_REPO is the second fork seam (the sibling of FLUX_*): setup.sh's Phase-2
+	// `gh secret set` block (platform/infra/hetzner/setup.sh:596) defaults GH_REPO
+	// to the upstream `stagecraft-ing/open-agentic-platform` and syncs
+	// KUBECONFIG_HETZNER / WEBHOOK_SECRET / GHCR_PAT to it. Unset, a fork's
+	// platform phase would push the fork's own cluster kubeconfig at the UPSTREAM
+	// repo (a cross-repo secret leak, or a hard failure if the operator lacks
+	// upstream admin). Driving GH_REPO from ORG/REPO points that sync at the fork,
+	// exactly as FLUX_OWNER/REPO point `flux bootstrap` at the fork.
+	{Name: "GH_REPO", Prov: Derived,
+		Derive: func(g func(string) string) string {
+			org, repo := strings.TrimSpace(g("ORG")), strings.TrimSpace(g("REPO"))
+			if org == "" || repo == "" {
+				return ""
+			}
+			return org + "/" + repo
+		}},
 	{Name: "APP_BASE_URL", Prov: Derived,
 		Derive: func(g func(string) string) string { return httpsHost("", g("DOMAIN")) }},
 	{Name: "RAUTHY_URL", Prov: Derived,
