@@ -119,7 +119,7 @@ func report(cfg *config.Config, path, vault string) {
 	fmt.Printf("\nwrote %s (vault: %s)\n", path, vault)
 	fmt.Printf("  user-supplied: %d set\n", user)
 	fmt.Printf("  generated:     %d minted\n", gen)
-	fmt.Printf("  derived:       %d computed from DOMAIN\n", derived)
+	fmt.Printf("  derived:       %d computed (DOMAIN + ORG/REPO)\n", derived)
 	fmt.Printf("  pending:       %d provider-produced (filled by github/identity phases)\n", pending)
 	fmt.Println("\nnext: oap-bootstrap doctor")
 }
