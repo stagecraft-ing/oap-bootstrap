@@ -13,17 +13,31 @@ run `spec-spine compile` and `spec-spine lint` to check the corpus.
 
 ## Status
 
-Early. **M1** ships today: the config model and two working commands, `init`
-and `doctor`. The provisioning phases (`github`, `cluster`, `dns`, `identity`,
-`platform`, `verify`, `apply`) are registered stubs landing in later milestones.
+All phases implemented (milestones M0 through M5). `init` and `doctor` plus the
+full provisioning sequence (`github`, `cluster`, `dns`, `identity`, `platform`,
+`verify`) and the unattended `apply --yes` are wired and unit-tested. The live
+cloud/cluster/Rauthy legs have not yet been exercised against a real target; a
+first real run is the outstanding acceptance step (success criteria SC-001
+through SC-005 in the spec).
 
 ## Quickstart
 
 ```bash
 go build -o oap-bootstrap ./cmd/oap-bootstrap
 
-./oap-bootstrap init      # collect/generate config into oap.env
-./oap-bootstrap doctor    # preflight: required tools + config readiness
+# Guided, phase by phase. Every phase is idempotent (detect-or-create), so
+# re-running one is how you resume after a fix.
+./oap-bootstrap init       # collect/generate config into oap.env
+./oap-bootstrap doctor     # preflight: required tools + config readiness
+./oap-bootstrap github     # fork + register the GitHub App + Actions secrets
+./oap-bootstrap cluster    # wrap setup.sh phase 1 (K3s + GitOps); capture NODE_IP
+./oap-bootstrap dns        # Cloudflare A records -> NODE_IP; wait for certs
+./oap-bootstrap identity   # Rauthy OIDC clients (+ guided provider leg)
+./oap-bootstrap platform   # wrap setup.sh phase 2 (secrets + deploy)
+./oap-bootstrap verify     # endpoint / cert / webhook health report
+
+# Or, from a complete oap.env, run every phase unattended:
+./oap-bootstrap apply --yes
 ```
 
 `init` prompts for the values only you can supply (target org, domain, cloud and

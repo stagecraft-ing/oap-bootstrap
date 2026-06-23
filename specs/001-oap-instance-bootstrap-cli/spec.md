@@ -305,6 +305,14 @@ added to the spec-spine repo.
 - **M5**: `platform` + `verify` + `apply --yes`: full unattended path and the
   idempotent second-run no-op.
 
+**Implementation status (2026-06-23).** All milestones have landed. M0 in the
+upstream repo (its `FR-040`); M1 through M5 in this repo on `main` (`0b0b06d`
+M1, `48c2965` M2, `4bb06bc` M3, `1637632` M4, `a4a4097` M5). M5 also added the
+`GH_REPO` derived fork seam (sibling of `FLUX_*`) so setup.sh's Phase-2
+`gh secret set` targets the fork, not upstream. Every phase is unit-tested; the
+live cloud/cluster/Rauthy legs are deferred to a first real-target run, which is
+the acceptance gate for SC-001 through SC-005 (§5).
+
 ## 9. Out of scope (non-goals)
 
 - Reimplementing setup.sh, post-create.sh, or the Helm charts in Go.
