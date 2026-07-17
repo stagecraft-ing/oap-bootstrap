@@ -21,7 +21,7 @@ var phase2GateKeys = []string{
 	"GITHUB_APP_ID", "GITHUB_APP_PRIVATE_KEY_B64",
 	"OIDC_SPA_CLIENT_ID", "OIDC_M2M_CLIENT_ID", "OIDC_M2M_CLIENT_SECRET",
 	"RAUTHY_CLIENT_ID", "RAUTHY_CLIENT_SECRET", "RAUTHY_ADMIN_TOKEN",
-	"STAGECRAFT_KNOWLEDGE_SWEEPER_CLIENT_ID", "STAGECRAFT_KNOWLEDGE_SWEEPER_CLIENT_SECRET",
+	"STATECRAFT_KNOWLEDGE_SWEEPER_CLIENT_ID", "STATECRAFT_KNOWLEDGE_SWEEPER_CLIENT_SECRET",
 }
 
 func cmdPlatform(args []string) error {
@@ -105,7 +105,7 @@ func cmdPlatform(args []string) error {
 	}
 
 	// 3. Run setup.sh Phase 2: with the full provider key set present in the bridge,
-	//    the script crosses its Phase-1 gate, materialises the stagecraft/deployd
+	//    the script crosses its Phase-1 gate, materialises the statecraft/deployd
 	//    secrets, and rolls the deployments. Idempotent: a re-run re-applies the
 	//    same secrets and restarts the pods, ending in the same state.
 	_, sopsKeyFile, _ := config.SopsAvailable()
@@ -124,7 +124,7 @@ func cmdPlatform(args []string) error {
 
 	domain := cfg.Get("DOMAIN")
 	fmt.Printf("\nplatform phase complete. The instance is deploying:\n")
-	fmt.Printf("  Stagecraft:  https://%s\n", domain)
+	fmt.Printf("  Statecraft:  https://%s\n", domain)
 	fmt.Printf("  Deployd API: https://deploy.%s\n", domain)
 	fmt.Printf("  Rauthy OIDC: https://auth.%s\n", domain)
 	fmt.Printf("\nNext: oap-bootstrap verify\n")

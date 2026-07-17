@@ -1,6 +1,6 @@
 # Introduction
 
-`oap-bootstrap` is a single-binary Go CLI that stands up a fresh [Open Agentic Platform (OAP)](https://github.com/stagecraft-ing/open-agentic-platform) instance in a brand-new GitHub organization and brings its Hetzner K3s estate online. 
+`oap-bootstrap` is a single-binary Go CLI that stands up a fresh [Open Agentic Platform (OAP)](https://github.com/statecrafting/open-agentic-platform) instance in a brand-new GitHub organization and brings its Hetzner K3s estate online. 
 
 Historically, deploying OAP into a new organization required a multi-hour manual choreography: forking the repository, hand-registering a GitHub App and OAuth App, clicking through the Rauthy interface to create OIDC clients, pointing DNS records, populating a 151-line `.env` file, and running a 621-line `setup.sh` script in two gated passes. `oap-bootstrap` replaces this entire sequence with a single, resumable, and mostly unattended workflow.
 

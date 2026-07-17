@@ -36,7 +36,7 @@ type fakeRauthy struct {
 func newFakeRauthy() *fakeRauthy {
 	return &fakeRauthy{
 		clients: map[string]ClientPayload{},
-		// Seed the `oap` attribute scope the stagecraft seeder makes, so the custom
+		// Seed the `oap` attribute scope the statecraft seeder makes, so the custom
 		// scopes the identity phase ensures are genuinely absent on the first run.
 		scopes: map[string]bool{"oap": true},
 	}
@@ -113,10 +113,10 @@ func TestIdentitySmoke(t *testing.T) {
 	ctx := context.Background()
 	const appBase = "https://oap.example.com"
 	ids := ClientIDs{
-		SPA:     "stagecraft-spa",
-		M2M:     "stagecraft-m2m",
-		Server:  "stagecraft-server",
-		Sweeper: "stagecraft-knowledge-sweeper-m2m-app",
+		SPA:     "statecraft-spa",
+		M2M:     "statecraft-m2m",
+		Server:  "statecraft-server",
+		Sweeper: "statecraft-knowledge-sweeper-m2m-app",
 	}
 
 	// 1. Ensure the custom scopes the M2M/sweeper clients reference. Both are absent

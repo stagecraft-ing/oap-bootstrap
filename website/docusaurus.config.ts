@@ -7,10 +7,10 @@ const config: Config = {
   tagline: 'Fork OAP into a new org and bring its Hetzner K3s estate online, resumably.',
   favicon: 'img/favicon.ico',
 
-  url: 'https://stagecraft-ing.github.io',
+  url: 'https://statecrafting.github.io',
   baseUrl: '/oap-bootstrap/',
 
-  organizationName: 'stagecraft-ing',
+  organizationName: 'statecrafting',
   projectName: 'oap-bootstrap',
 
   onBrokenLinks: 'throw',
@@ -34,7 +34,7 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           editUrl:
-            'https://github.com/stagecraft-ing/oap-bootstrap/tree/main/website/',
+            'https://github.com/statecrafting/oap-bootstrap/tree/main/website/',
         },
         blog: false,
         theme: {
@@ -55,7 +55,7 @@ const config: Config = {
           label: 'Docs',
         },
         {
-          href: 'https://github.com/stagecraft-ing/oap-bootstrap',
+          href: 'https://github.com/statecrafting/oap-bootstrap',
           label: 'GitHub',
           position: 'right',
         },
@@ -86,11 +86,11 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/stagecraft-ing/oap-bootstrap',
+              href: 'https://github.com/statecrafting/oap-bootstrap',
             },
             {
               label: 'Open Agentic Platform',
-              href: 'https://github.com/stagecraft-ing/open-agentic-platform',
+              href: 'https://github.com/statecrafting/open-agentic-platform',
             },
           ],
         },

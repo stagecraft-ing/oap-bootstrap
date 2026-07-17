@@ -52,8 +52,8 @@ script invented. The error text asks for a fine-grained PAT with
 
 ## Not the same as the platform GitHub App
 
-This operator PAT is separate from stagecraft's GitHub App / token
-broker (`platform/services/stagecraft/api/github/`). The broker serves
+This operator PAT is separate from statecraft's GitHub App / token
+broker (`platform/services/statecraft/api/github/`). The broker serves
 the running platform's webhook and PR-preview flow. `setup.sh` is a
 human-operator one-time action that uses the operator's own PAT. Do not
 conflate the two when designing the CLI's credential handling.
@@ -77,7 +77,7 @@ conflate the two when designing the CLI's credential handling.
 ## Known stale slugs in setup.sh (cosmetic, not blocking)
 
 A fork audit surfaced two spots in OAP `setup.sh` that still hardcode
-`stagecraft-ing/open-agentic-platform` and would mislead a fork
+`statecrafting/open-agentic-platform` and would mislead a fork
 operator. Both are outside spec 221's `bootstrap`-section authority
 (they fall under OAP spec 106/143 whole-file authority), so they were
 deliberately left out of the 221 closure PR:

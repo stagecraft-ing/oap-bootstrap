@@ -77,7 +77,7 @@ func RunSetupPhase1(ctx context.Context, repoDir, sopsAgeKeyFile string) error {
 // values from the github/identity phases). With those present, setup.sh's
 // Phase-2 readiness gate passes: it re-runs the idempotent Phase-1 steps
 // (cluster create skipped given the kubeconfig, `flux bootstrap` a no-op,
-// Phase-1 secrets re-applied), then materialises the stagecraft/deployd secrets
+// Phase-1 secrets re-applied), then materialises the statecraft/deployd secrets
 // and rolls the deployments to pick them up. The CLI does not parse or branch on
 // the phase; it hands setup.sh a complete .env and lets the script decide.
 func RunSetupPhase2(ctx context.Context, repoDir, sopsAgeKeyFile string) error {

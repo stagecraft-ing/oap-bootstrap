@@ -16,7 +16,7 @@ import (
 func cmdGithub(args []string) error {
 	fs := flag.NewFlagSet("github", flag.ContinueOnError)
 	path := fs.String("config", "oap.env", "path to the oap.env config file")
-	upstreamOwner := fs.String("upstream-owner", "stagecraft-ing", "upstream org to fork from")
+	upstreamOwner := fs.String("upstream-owner", "statecrafting", "upstream org to fork from")
 	upstreamRepo := fs.String("upstream-repo", "open-agentic-platform", "upstream repo to fork")
 	timeout := fs.Duration("timeout", 5*time.Minute, "max wait for the GitHub App consent")
 	skipFork := fs.Bool("skip-fork", false, "assume the fork already exists; skip the fork step")

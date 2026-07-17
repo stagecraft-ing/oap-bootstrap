@@ -30,7 +30,7 @@ type ClientPayload struct {
 
 // ClientIDs are the chosen client ids for the four OIDC clients. They are
 // operator-overridable via oap.env (so an existing deployment's ids are honoured)
-// and default to the stagecraft-* convention otherwise.
+// and default to the statecraft-* convention otherwise.
 type ClientIDs struct {
 	SPA     string
 	M2M     string
@@ -39,7 +39,7 @@ type ClientIDs struct {
 }
 
 // CustomScopes are the non-standard authorization scopes the M2M and sweeper
-// clients carry. They are NOT created by the stagecraft seeder (which only makes
+// clients carry. They are NOT created by the statecraft seeder (which only makes
 // the `oap` attribute scope), so the identity phase ensures them before creating
 // clients that reference them. openid/email/profile are Rauthy built-ins and
 // need no creation.
@@ -64,7 +64,7 @@ func DesiredClients(appBaseURL string, ids ClientIDs) []ClientPayload {
 		}
 	}
 
-	spa := base(ids.SPA, "stagecraft SPA", false)
+	spa := base(ids.SPA, "statecraft SPA", false)
 	spa.RedirectURIs = []string{appBaseURL + "/auth/callback"}
 	spa.AllowedOrigins = []string{appBaseURL}
 	spa.FlowsEnabled = []string{"authorization_code"}
@@ -72,19 +72,19 @@ func DesiredClients(appBaseURL string, ids ClientIDs) []ClientPayload {
 	spa.DefaultScopes = []string{"openid"}
 	spa.Challenges = []string{"S256"}
 
-	server := base(ids.Server, "stagecraft server", true)
+	server := base(ids.Server, "statecraft server", true)
 	server.RedirectURIs = []string{appBaseURL + "/auth/rauthy/callback", appBaseURL + "/auth/oidc/callback"}
 	server.FlowsEnabled = []string{"authorization_code", "refresh_token"}
 	server.Scopes = []string{"openid", "email", "profile"}
 	server.DefaultScopes = []string{"openid"}
 	server.Challenges = []string{"S256"}
 
-	m2m := base(ids.M2M, "stagecraft deployd M2M", true)
+	m2m := base(ids.M2M, "statecraft deployd M2M", true)
 	m2m.FlowsEnabled = []string{"client_credentials"}
 	m2m.Scopes = []string{"deployd:deploy"}
 	m2m.DefaultScopes = []string{"deployd:deploy"}
 
-	sweeper := base(ids.Sweeper, "stagecraft knowledge sweeper M2M", true)
+	sweeper := base(ids.Sweeper, "statecraft knowledge sweeper M2M", true)
 	sweeper.FlowsEnabled = []string{"client_credentials"}
 	sweeper.Scopes = []string{"platform:knowledge:sweep"}
 	sweeper.DefaultScopes = []string{"platform:knowledge:sweep"}

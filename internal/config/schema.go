@@ -90,7 +90,7 @@ var Registry = []Key{
 	{Name: "REPO", Prov: UserSupplied, Required: true,
 		Prompt: "Target repo name"},
 	{Name: "DOMAIN", Prov: UserSupplied, Required: true,
-		Prompt: "Base domain (apex host for stagecraft, e.g. oap.example.com)"},
+		Prompt: "Base domain (apex host for statecraft, e.g. oap.example.com)"},
 	{Name: "LETSENCRYPT_EMAIL", Prov: UserSupplied, Required: true,
 		Prompt: "Email for Let's Encrypt registration"},
 	{Name: "HCLOUD_TOKEN", Prov: UserSupplied, Secret: true, Required: true,
@@ -139,8 +139,8 @@ var Registry = []Key{
 	{Name: "RAUTHY_CLIENT_ID", Prov: ProviderProduced, Required: true},
 	{Name: "RAUTHY_CLIENT_SECRET", Prov: ProviderProduced, Secret: true, Required: true},
 	{Name: "RAUTHY_ADMIN_TOKEN", Prov: ProviderProduced, Secret: true, Required: true},
-	{Name: "STAGECRAFT_KNOWLEDGE_SWEEPER_CLIENT_ID", Prov: ProviderProduced, Required: true},
-	{Name: "STAGECRAFT_KNOWLEDGE_SWEEPER_CLIENT_SECRET", Prov: ProviderProduced, Secret: true, Required: true},
+	{Name: "STATECRAFT_KNOWLEDGE_SWEEPER_CLIENT_ID", Prov: ProviderProduced, Required: true},
+	{Name: "STATECRAFT_KNOWLEDGE_SWEEPER_CLIENT_SECRET", Prov: ProviderProduced, Secret: true, Required: true},
 	{Name: "NODE_IP", Prov: ProviderProduced, Required: true}, // captured by the cluster phase
 
 	// ---- Derived: computed from another value (never prompted, never generated). ----
@@ -157,7 +157,7 @@ var Registry = []Key{
 		Derive: func(g func(string) string) string { return "main" }},
 	// GH_REPO is the second fork seam (the sibling of FLUX_*): setup.sh's Phase-2
 	// `gh secret set` block (platform/infra/hetzner/setup.sh:596) defaults GH_REPO
-	// to the upstream `stagecraft-ing/open-agentic-platform` and syncs
+	// to the upstream `statecrafting/open-agentic-platform` and syncs
 	// KUBECONFIG_HETZNER / WEBHOOK_SECRET / GHCR_PAT to it. Unset, a fork's
 	// platform phase would push the fork's own cluster kubeconfig at the UPSTREAM
 	// repo (a cross-repo secret leak, or a hard failure if the operator lacks

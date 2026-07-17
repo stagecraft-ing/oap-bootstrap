@@ -89,7 +89,7 @@ and sourced accordingly:
   by the CLI and handed to the manifest, so it is shared state on both sides.
 - **Provider-produced (Rauthy)**: `OIDC_SPA_CLIENT_ID`, `OIDC_M2M_CLIENT_ID`,
   `OIDC_M2M_CLIENT_SECRET`, `RAUTHY_CLIENT_ID`, `RAUTHY_CLIENT_SECRET`,
-  `RAUTHY_ADMIN_TOKEN`, `STAGECRAFT_KNOWLEDGE_SWEEPER_CLIENT_ID/SECRET`.
+  `RAUTHY_ADMIN_TOKEN`, `STATECRAFT_KNOWLEDGE_SWEEPER_CLIENT_ID/SECRET`.
 - **Derived (computed from DOMAIN)**: `APP_BASE_URL`, `RAUTHY_URL`,
   `OIDC_ENDPOINT`, `DEPLOYD_AUDIENCE`, `TENANTS_BASE_DOMAIN`, every webhook and
   callback URL.
@@ -186,7 +186,7 @@ DOMAIN. Webhook delivery simply does not start until ingress is live.
   fallback). Provider creation is session-gated on Rauthy 0.35, so the CLI
   degrades to a single guided screen for that leg, not silently skipping;
   re-probe on Rauthy 0.36+.
-- **platform (Phase 2b)**: Materialize the K8s secrets and deploy stagecraft and
+- **platform (Phase 2b)**: Materialize the K8s secrets and deploy statecraft and
   deployd-api by wrapping the forked repo's `setup.sh` Phase 2 (gated on the
   provider-produced and Rauthy-produced keys now present in `oap.env`), not by
   reimplementing secret materialization.
@@ -291,7 +291,7 @@ added to the spec-spine repo.
 
 ## 8. Implementation milestones
 
-- **M0 (upstream)**: Env-drive the few hardcoded `stagecraft-ing/open-agentic-platform`
+- **M0 (upstream)**: Env-drive the few hardcoded `statecrafting/open-agentic-platform`
   refs (the upstream's `FR-040`) so a fork needs zero source edits. Lands in the
   upstream repo, not here. Unblocks the `cluster`/`platform` wrappers.
 - **M1**: Skeleton + config/provenance model + `init` + `doctor`; `oap.env` SOPS

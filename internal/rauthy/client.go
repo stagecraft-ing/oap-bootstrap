@@ -1,7 +1,7 @@
 // Package rauthy is a thin admin-API client for the `identity` phase: it creates
 // the OIDC clients the operator otherwise hand-builds in the Rauthy admin UI
-// before the stagecraft seeder can grant them scopes. It mirrors the upstream
-// stagecraft admin-client wrapper (api/auth/rauthyAdminClients.ts) and the
+// before the statecraft seeder can grant them scopes. It mirrors the upstream
+// statecraft admin-client wrapper (api/auth/rauthyAdminClients.ts) and the
 // T003-validated Rauthy 0.35 client schema. net/http + encoding/json, no SDK.
 // See spec 001 section 3.4 (identity, Phase 2a).
 package rauthy

@@ -21,7 +21,7 @@ type CertStatus struct {
 // until all report Ready=True or the timeout elapses, returning the final
 // per-Certificate status either way. It never hangs (the spec's bounded-poll
 // requirement) and does not treat a still-pending cert as a hard error: at the
-// dns phase only the rauthy and wildcard certs exist, while stagecraft/deployd
+// dns phase only the rauthy and wildcard certs exist, while statecraft/deployd
 // certs are issued later, so the caller reports rather than fails. A kubectl
 // invocation error (no cluster, bad kubeconfig) IS returned as an error.
 func WaitCertificatesReady(ctx context.Context, kubeconfigPath string, timeout, interval time.Duration) ([]CertStatus, error) {

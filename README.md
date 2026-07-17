@@ -1,6 +1,6 @@
 # oap-bootstrap
 
-Stand up an [open-agentic-platform](https://github.com/stagecraft-ing/open-agentic-platform)
+Stand up an [open-agentic-platform](https://github.com/statecrafting/open-agentic-platform)
 instance in a new GitHub org and bring its Hetzner K3s estate online, in one
 resumable CLI. Fork the platform into your org, register the GitHub App, wire
 every secret, provision the cluster, and verify, without the multi-hour manual

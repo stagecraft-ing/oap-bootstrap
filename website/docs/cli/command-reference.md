@@ -21,7 +21,7 @@ Performs preflight checks before any provisioning occurs.
 Forks the upstream repository and registers the GitHub App.
 
 - **Flags**:
-  - `--upstream-owner`: The upstream organization to fork from (default: `stagecraft-ing`).
+  - `--upstream-owner`: The upstream organization to fork from (default: `statecrafting`).
   - `--upstream-repo`: The upstream repository to fork (default: `open-agentic-platform`).
   - `--timeout`: Maximum wait time for the GitHub App consent flow (default: `5m`).
   - `--skip-fork`: Assume the fork already exists and skip the forking step.
@@ -72,7 +72,7 @@ Asserts the health of the deployed instance.
   - `--repo-dir`: Path to the local checkout holding the `kubeconfig` (default: `./<REPO>`).
   - `--timeout`: Per-endpoint HTTP timeout (default: `10s`).
   - `--skip-certs`: Skip the in-cluster cert-manager readiness snapshot.
-- **Behavior**: Probes the public endpoints (Stagecraft, Deployd API, Rauthy, and the GitHub webhook receiver) to ensure they respond successfully over valid TLS. It optionally checks in-cluster certificate statuses. A hard endpoint failure (unreachable or 5xx status) fails the phase.
+- **Behavior**: Probes the public endpoints (Statecraft, Deployd API, Rauthy, and the GitHub webhook receiver) to ensure they respond successfully over valid TLS. It optionally checks in-cluster certificate statuses. A hard endpoint failure (unreachable or 5xx status) fails the phase.
 
 ## `apply`
 

@@ -7,7 +7,7 @@ This guide walks you through building the `oap-bootstrap` CLI and provisioning a
 Clone the repository and build the binary using Go 1.25:
 
 ```bash
-git clone https://github.com/stagecraft-ing/oap-bootstrap.git
+git clone https://github.com/statecrafting/oap-bootstrap.git
 cd oap-bootstrap
 go build -o oap-bootstrap ./cmd/oap-bootstrap
 ```

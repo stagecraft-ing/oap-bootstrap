@@ -1,5 +1,5 @@
 // Package verify is the post-deploy smoke check for a provisioned OAP instance:
-// the three public service ingresses (stagecraft, deployd-api, Rauthy) plus the
+// the three public service ingresses (statecraft, deployd-api, Rauthy) plus the
 // GitHub webhook receiver must answer over a valid TLS chain. A successful
 // `client.Do` validates the server certificate, so a reachable endpoint also
 // proves cert-manager issued and the chain is trusted from outside the cluster.
@@ -28,7 +28,7 @@ type Endpoint struct {
 }
 
 // PlatformEndpoints returns the public targets derived from DOMAIN, mirroring the
-// ingress topology setup.sh prints at the end of a Phase-2 deploy: the stagecraft
+// ingress topology setup.sh prints at the end of a Phase-2 deploy: the statecraft
 // apex, the deployd-api orchestrator, the Rauthy OIDC provider, and the GitHub
 // webhook receiver (https://<domain>/api/github/webhook, setup.sh:466). Order is
 // stable so the report is deterministic.
@@ -38,7 +38,7 @@ func PlatformEndpoints(domain string) []Endpoint {
 		return nil
 	}
 	return []Endpoint{
-		{Name: "stagecraft", URL: "https://" + d + "/"},
+		{Name: "statecraft", URL: "https://" + d + "/"},
 		{Name: "deployd-api", URL: "https://deploy." + d + "/"},
 		{Name: "rauthy", URL: "https://auth." + d + "/"},
 		{Name: "github-webhook", URL: "https://" + d + "/api/github/webhook"},

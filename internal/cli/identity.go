@@ -57,16 +57,16 @@ func cmdIdentity(args []string) error {
 	// 2. Create the four OIDC clients (detect-or-skip), capturing the
 	//    once-issued secret of each confidential client into oap.env immediately.
 	ids := rauthy.ClientIDs{
-		SPA:     orDefault(cfg.Get("OIDC_SPA_CLIENT_ID"), "stagecraft-spa"),
-		M2M:     orDefault(cfg.Get("OIDC_M2M_CLIENT_ID"), "stagecraft-m2m"),
-		Server:  orDefault(cfg.Get("RAUTHY_CLIENT_ID"), "stagecraft-server"),
-		Sweeper: orDefault(cfg.Get("STAGECRAFT_KNOWLEDGE_SWEEPER_CLIENT_ID"), "stagecraft-knowledge-sweeper-m2m-app"),
+		SPA:     orDefault(cfg.Get("OIDC_SPA_CLIENT_ID"), "statecraft-spa"),
+		M2M:     orDefault(cfg.Get("OIDC_M2M_CLIENT_ID"), "statecraft-m2m"),
+		Server:  orDefault(cfg.Get("RAUTHY_CLIENT_ID"), "statecraft-server"),
+		Sweeper: orDefault(cfg.Get("STATECRAFT_KNOWLEDGE_SWEEPER_CLIENT_ID"), "statecraft-knowledge-sweeper-m2m-app"),
 	}
 	keyByID := map[string][2]string{
 		ids.SPA:     {"OIDC_SPA_CLIENT_ID", ""},
 		ids.Server:  {"RAUTHY_CLIENT_ID", "RAUTHY_CLIENT_SECRET"},
 		ids.M2M:     {"OIDC_M2M_CLIENT_ID", "OIDC_M2M_CLIENT_SECRET"},
-		ids.Sweeper: {"STAGECRAFT_KNOWLEDGE_SWEEPER_CLIENT_ID", "STAGECRAFT_KNOWLEDGE_SWEEPER_CLIENT_SECRET"},
+		ids.Sweeper: {"STATECRAFT_KNOWLEDGE_SWEEPER_CLIENT_ID", "STATECRAFT_KNOWLEDGE_SWEEPER_CLIENT_SECRET"},
 	}
 	for _, p := range rauthy.DesiredClients(cfg.Get("APP_BASE_URL"), ids) {
 		keys := keyByID[p.ID]
